@@ -1,16 +1,13 @@
 package com.phoneappli.room_livedata_diffutil
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
+import android.text.TextUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,30 +31,18 @@ class MainActivity : AppCompatActivity() {
         // in the foreground.
         wordViewModel.allWords.observe(this, Observer { words ->
             // Update the cached copy of the words in the adapter.
-            words.let { adapter.submitList(it) }
+                adapter.submitList(words)
         })
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewWordActivity::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
-        }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
+        button_save.setOnClickListener {
+            if (TextUtils.isEmpty(edit_word.text)) {
 
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.let { data ->
-                val word = Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY))
+            } else {
+                val word = Word(0, edit_word.text.toString())
                 wordViewModel.insert(word)
+                edit_word.text.clear()
             }
-        } else {
-            Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }

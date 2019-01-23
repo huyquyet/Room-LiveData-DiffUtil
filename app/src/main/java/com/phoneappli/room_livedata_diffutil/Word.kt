@@ -1,8 +1,12 @@
 package com.phoneappli.room_livedata_diffutil
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /*
  * Copyright (C) 2017 Google Inc.
@@ -33,15 +37,11 @@ import androidx.room.PrimaryKey
  */
 
 @Entity(tableName = "word_table")
-class Word {
+data class Word(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Int = 0,
 
     @ColumnInfo(name = "word")
     var word: String = ""
-
-    constructor(word: String) {
-        this.word = word
-    }
-}
+)

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 
 class NoteDiffCallBack : DiffUtil.ItemCallback<Word>() {
     override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
-        return oldItem.word == newItem.word
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {

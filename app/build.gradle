@@ -54,6 +54,9 @@ dependencies {
     androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    //Using this for parse json data to object
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
 kotlin {
     experimental {
